@@ -3,6 +3,8 @@ from treelib import Tree
 from identify_places import identify_places
 from move import move
 
+import copy
+
 
 class State(object):
     def __init__(self, matrix, validity):
@@ -45,17 +47,24 @@ class StateTree(object):
         previous_matrix = parent_node.data.get_state()
         places = identify_places(previous_matrix)
         matrix, validity = move(previous_matrix, places, turn, 0)
-        print(validity)
-        if turn == 'down':
-            self.tree.create_node(self.tree.size() + 1, self.tree.size() + 1, parent=parent_node,
+        if validity is True:
+            self.tree.create_node(turn, self.tree.size() + 1, parent=parent_node,
                                   data=State(matrix, validity))
 
     def add_child_move_nodes(self, parent_node):
-        self.add_node(parent_node, 'up')
-        self.add_node(parent_node, 'down')
-        self.add_node(parent_node, 'right')
-        self.add_node(parent_node, 'left')
+        copy_of_parent_node = copy.deepcopy(parent_node)
+        self.add_node(copy_of_parent_node, 'up')
+        copy_of_parent_node = copy.deepcopy(parent_node)
+        self.add_node(copy_of_parent_node, 'down')
+        copy_of_parent_node = copy.deepcopy(parent_node)
+        self.add_node(copy_of_parent_node, 'right')
+        copy_of_parent_node = copy.deepcopy(parent_node)
+        self.add_node(copy_of_parent_node, 'left')
         return True
+
+    def get_childs(self, node):
+        return self.tree.children(node)
+
 
     def get_node_of_same_depth(self, depth):
         return [node for node in self.tree.filter_nodes(lambda x: self.tree.depth(x) == depth)]

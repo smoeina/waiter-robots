@@ -1,5 +1,6 @@
 from state_tree import StateTree
 
+
 def IDS(state_tree,depth):
     for i in range(depth):
         nodes = state_tree.get_node_of_same_depth(i)

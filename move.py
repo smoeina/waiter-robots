@@ -38,29 +38,33 @@ def move(matrix, places, turn, robot_number):
             butter_tile_str = "".join(butter_tile)
             matrix[butter_y_position][butter_x_position] = butter_tile_str
 
-            if turn == 'up':
-                matrix[butter_y_position - 1][butter_x_position] = matrix[butter_y_position - 1][
-                                                                       butter_x_position] + "b"
-                butter_y_position -= 1
-            elif turn == 'down':
-                matrix[butter_y_position + 1][butter_x_position] = matrix[butter_y_position + 1][
-                                                                       butter_x_position] + "b"
-                butter_y_position += 1
-            elif turn == 'left':
-                matrix[butter_y_position][butter_x_position - 1] = matrix[butter_y_position][
-                                                                       butter_x_position - 1] + "b"
-                butter_x_position -= 1
+            try:
+                if turn == 'up':
+                    butter_y_position -= 1
+                    matrix[butter_y_position][butter_x_position] = matrix[butter_y_position][
+                                                                           butter_x_position] + "b"
+                elif turn == 'down':
+                    butter_y_position += 1
+                    matrix[butter_y_position][butter_x_position] = matrix[butter_y_position][
+                                                                           butter_x_position] + "b"
+                elif turn == 'left':
+                    butter_x_position -= 1
+                    matrix[butter_y_position][butter_x_position] = matrix[butter_y_position][
+                                                                           butter_x_position] + "b"
 
-            elif turn == 'right':
-                matrix[butter_y_position][butter_x_position + 1] = matrix[butter_y_position][
-                                                                       butter_x_position + 1] + "b"
-                butter_x_position += 1
+                elif turn == 'right':
+                    butter_x_position += 1
+                    matrix[butter_y_position][butter_x_position] = matrix[butter_y_position][
+                                                                           butter_x_position] + "b"
+            except:
+                pass
+
 
     block_places = places['blocks']
     rows = len(matrix)
     cols = len(matrix[0])
     if turn == 'down':
-        print("Hasan")
+        print("Abbase Bu Azaar")
     if ((robot_y_position, robot_x_position) in block_places):
         validity = False
     try:
