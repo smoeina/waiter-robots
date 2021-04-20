@@ -2,7 +2,6 @@ import numpy as np
 
 
 def move(matrix, places, turn, robot_number):
-    global butter_y_position, butter_x_position
     validity = True
     robot_y_position = places['robots'][robot_number][0]
     robot_x_position = places['robots'][robot_number][1]
@@ -60,6 +59,8 @@ def move(matrix, places, turn, robot_number):
     block_places = places['blocks']
     rows = len(matrix)
     cols = len(matrix[0])
+    if turn == 'down':
+        print("Hasan")
     if ((robot_y_position, robot_x_position) in block_places):
         validity = False
     try:
