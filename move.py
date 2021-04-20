@@ -11,19 +11,23 @@ def move(matrix, places, turn, robot_number):
     robot_tile_str = "".join(robot_tile)
     matrix[robot_y_position][robot_x_position] = robot_tile_str
     turn = turn.lower()
-    if turn == 'up':
-        matrix[robot_y_position - 1][robot_x_position] = matrix[robot_y_position - 1][robot_x_position] + "r"
-        robot_y_position -= 1
-    elif turn == 'down':
-        matrix[robot_y_position + 1][robot_x_position] = matrix[robot_y_position + 1][robot_x_position] + "r"
-        robot_y_position += 1
-    elif turn == 'left':
-        matrix[robot_y_position][robot_x_position - 1] = matrix[robot_y_position][robot_x_position - 1] + "r"
-        robot_x_position -= 1
+    try:
+        if turn == 'up':
+            robot_y_position -= 1
+            matrix[robot_y_position][robot_x_position] = matrix[robot_y_position][robot_x_position] + "r"
+        elif turn == 'down':
+            robot_y_position += 1
+            matrix[robot_y_position][robot_x_position] = matrix[robot_y_position][robot_x_position] + "r"
+        elif turn == 'left':
+            robot_x_position -= 1
+            matrix[robot_y_position][robot_x_position] = matrix[robot_y_position][robot_x_position] + "r"
 
-    elif turn == 'right':
-        matrix[robot_y_position][robot_x_position + 1] = matrix[robot_y_position][robot_x_position + 1] + "r"
-        robot_x_position += 1
+        elif turn == 'right':
+            robot_x_position += 1
+            matrix[robot_y_position][robot_x_position] = matrix[robot_y_position][robot_x_position] + "r"
+    except:
+        pass
+
 
     for i in range(len(places['butters'])):
         if places['butters'][i] == (robot_y_position, robot_x_position):
@@ -61,7 +65,6 @@ def move(matrix, places, turn, robot_number):
     try:
         if (butter_y_position > rows - 1) or (butter_y_position < 0) or (butter_x_position > cols - 1) or (butter_x_position < 0) or ((butter_y_position, butter_x_position) in block_places):
             validity = False
-            print(butter_y_position,butter_x_position,cols,rows)
     except:
         pass
     if (robot_x_position > cols - 1) or (robot_y_position > rows - 1) or  (robot_y_position < 0) or (robot_x_position < 0):
