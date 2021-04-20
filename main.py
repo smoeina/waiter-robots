@@ -5,15 +5,11 @@ from read_input import read_input
 from state_tree import StateTree
 from IDS import *
 if __name__ == "__main__":
-    matrix = read_input("input/test63.txt")
+    matrix = read_input("input/test5.txt")
     state_tree = StateTree(matrix)
     #IDS(state_tree,3)
-    pm = IDS(state_tree,5)
-    while pm is not None:
-        print(pm.tag)
-        print("_____________")
-        print("_____________")
-        pm = state_tree.tree.parent(pm.identifier)
+    pm = IDS(state_tree,13)
+    print(get_path(state_tree, pm))
 
     # for m in pm:
     #     print_matrix(m.data.matrix)

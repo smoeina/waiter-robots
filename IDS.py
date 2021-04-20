@@ -20,3 +20,14 @@ def IDS(state_tree:StateTree, depth):
         state_tree.add_child_move_nodes(node)
         for child in state_tree.get_childs(node.identifier):
             stack.append(child)
+
+
+def get_path(state_tree, node):
+    stack = []
+    path = []
+    while node is not None:
+        stack.append(node.tag)
+        node = state_tree.tree.parent(node.identifier)
+    for i in range(stack.__len__()):
+        path.append(stack.pop())
+    return path
