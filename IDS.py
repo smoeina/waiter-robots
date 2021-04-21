@@ -1,6 +1,7 @@
 from state_tree import StateTree
 from print_matrix import print_matrix
 from identify_places import identify_places
+from hashlib import sha256
 
 
 
@@ -10,9 +11,10 @@ def IDS(state_tree:StateTree, depth):
     visited = set()
     while stack:
         node = stack.pop()
-        if node.identifier in visited:
+        hashed_mat = sha256(str(node.data.matrix).encode('utf-8')).hexdigest()
+        if hashed_mat in visited:
             continue
-        visited.add(node.identifier)
+        visited.add(hashed_mat)
         if node.data.success():
             return node
         if state_tree.tree.depth(node) >= depth:

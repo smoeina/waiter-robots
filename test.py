@@ -1,4 +1,6 @@
 from treelib import Node, Tree
+#import hashlib
+#print(hashlib.sha256('123'.encode('utf-8')).hexdigest())
 tree = Tree()
 tree.create_node("Parry", "parry")  # root node
 tree.create_node("Jane", "jane", parent="parry")
