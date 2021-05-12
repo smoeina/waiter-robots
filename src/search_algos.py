@@ -137,3 +137,40 @@ def BBFS(t_map, initial_state):
         for child in m_tree.children(node.identifier):
             queue_back.put(child)
 
+
+
+# A* Searching Algorithm!
+def A_Star(t_map, initial_state):
+    # Set Initial State Cost to Zero!
+    initial_state['g_cost'] = 0
+    # Build Search Tree from Initial State!
+    p_tree = build_tree(initial_state)
+    # Create Frontier Stack!
+    stack = [p_tree.get_node(p_tree.root)]
+    # Create Visited List!
+    visited_states = set()
+    # Search until Frontier List Going Empty!
+    while stack:
+        # Sort Node by h(n) + g(n)
+        stack.sort(key=lambda n: calculate_heuristic(n.data) + n.data['g_cost'], reverse=True)
+        # Pop from Frontier List!
+        node = stack.pop()
+        # Add Hashed Node Data to Revisited List!
+        state_copy = deepcopy(node.data)
+        del state_copy['g_cost']
+        hashed_node = sha256(str(state_copy).encode('utf-8')).hexdigest()
+        # Ignore Revisited States!
+        if hashed_node in visited_states:
+            continue
+        visited_states.add(hashed_node)
+        # Check the Request for Ignore Visited States or Not!
+        expand_node(p_tree, t_map, node, heuristic=True)
+        # Iterate Node's Child List and Add Them to Frontier Stack!
+        for child in p_tree.children(node.identifier):
+            stack.append(child)
+            # Check if We Succeed! ^___^
+            if child.data['done']:
+                print(f'Pariya || {p_tree.size()}')
+                return p_tree, child
+
+    return p_tree, False
